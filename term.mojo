@@ -39,6 +39,7 @@ struct BF:
 struct CP:
     alias RESET_ALL = "\033[0m"
     alias CLS = "\033[2J"
+    alias CUR_HOME = "\033[H"
 
 
 fn send(cmd: String):
@@ -46,5 +47,10 @@ fn send(cmd: String):
 
 
 fn clear():
-    """Clears screen and homes cursor"""
+    """Clears screen and homes cursor."""
     send(CP.CLS)
+
+
+def home_pos():
+    """Move the cursor to the upper-left corner of the screen."""
+    send(CP.CUR_HOME)
