@@ -38,7 +38,8 @@ struct BF:
 
 struct CP:
     alias RESET_ALL = "\033[0m"
-    alias CLS = "\033[2J"
+    alias CLS_SCR = "\033[2J"
+    alias CLR_BUF = "\033[3J"
     alias CUR_HOME = "\033[H"
 
 
@@ -46,11 +47,16 @@ fn send(cmd: String):
     print(cmd, flush=True)
 
 
-fn clear():
+fn clear_screen():
     """Clears screen and homes cursor."""
-    send(CP.CLS)
+    send(CP.CLS_SCR)
 
 
-def home_pos():
+fn home_pos():
     """Move the cursor to the upper-left corner of the screen."""
     send(CP.CUR_HOME)
+
+
+fn clear_scrollback():
+    """Remove any lines that can be scrolled to."""
+    send(CP.CLR_BUF)
