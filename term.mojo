@@ -34,3 +34,7 @@ struct BF:
     alias BRIGHT_MAGENTA = "105"
     alias BRIGHT_CYAN = "106"
     alias BRIGHT_WHITE = "107"
+
+
+struct CP:
+    alias RESET_ALL = "\033[0m"
