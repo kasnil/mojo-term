@@ -15,3 +15,22 @@ struct FG:
     alias BRIGHT_MAGENTA = "95"
     alias BRIGHT_CYAN = "96"
     alias BRIGHT_WHITE = "97"
+
+
+struct BF:
+    alias BLACK = "40"
+    alias RED = "41"
+    alias GREEN = "42"
+    alias YELLOW = "43"
+    alias BLUE = "44"
+    alias MAGENTA = "45"
+    alias CYAN = "46"
+    alias WHITE = "47"
+    alias BRIGHT_GRAY = "100"
+    alias BRIGHT_RED = "101"
+    alias BRIGHT_GREEN = "102"
+    alias BRIGHT_YELLOW = "103"
+    alias BRIGHT_BLUE = "104"
+    alias BRIGHT_MAGENTA = "105"
+    alias BRIGHT_CYAN = "106"
+    alias BRIGHT_WHITE = "107"
