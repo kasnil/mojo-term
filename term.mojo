@@ -38,3 +38,13 @@ struct BF:
 
 struct CP:
     alias RESET_ALL = "\033[0m"
+    alias CLS = "\033[2J"
+
+
+fn send(cmd: String):
+    print(cmd, flush=True)
+
+
+fn clear():
+    """Clears screen and homes cursor"""
+    send(CP.CLS)
