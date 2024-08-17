@@ -70,6 +70,13 @@ fn send(cmd: String):
     print(cmd, flush=True, end="")
 
 
+fn clear():
+    """Clears screen."""
+    clear_screen()
+    clear_scrollback()
+    home_pos()
+
+
 fn clear_screen():
     """Clears screen and homes cursor."""
     send(CP.CLS_SCR)
