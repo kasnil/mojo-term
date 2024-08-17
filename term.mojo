@@ -43,12 +43,16 @@ struct CP:
     alias CUR_HOME = "\033[H"
 
     @staticmethod
-    fn move_up(n: Int = 1) -> String:
-        return "\033[" + str(n) + "A"
+    fn move_backward(n: Int = 1) -> String:
+        return "\033[" + str(n) + "D"
 
     @staticmethod
     fn move_down(n: Int = 1) -> String:
         return "\033[" + str(n) + "B"
+
+    @staticmethod
+    fn move_up(n: Int = 1) -> String:
+        return "\033[" + str(n) + "A"
 
 
 fn send(cmd: String):
@@ -70,11 +74,16 @@ fn clear_scrollback():
     send(CP.CLR_BUF)
 
 
-fn move_up(n: Int = 1):
-    """Move cursor up n of lines."""
-    send(CP.move_up(n))
+fn move_up(lines: Int = 1):
+    """Move cursor up # of lines."""
+    send(CP.move_up(lines))
 
 
-fn move_down(n: Int = 1):
-    """Move cursor down n of lines."""
-    send(CP.move_down(n))
+fn move_down(lines: Int = 1):
+    """Move cursor down # of lines."""
+    send(CP.move_down(lines))
+
+
+fn move_left(chars: Int = 1):
+    """Move cursor backward # of chars."""
+    send(CP.move_backward(chars))
