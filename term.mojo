@@ -40,6 +40,7 @@ struct CP:
     alias RESET_ALL = "\033[0m"
     alias CLS_SCR = "\033[2J"
     alias CLR_BUF = "\033[3J"
+    alias CLR_END = "\033[K"
     alias CUR_HOME = "\033[H"
     alias CUR_SAVE = "\033[s"
     alias CUR_RESTORE = "\033[u"
@@ -117,3 +118,8 @@ fn save():
 fn restore():
     """Restores cursor position."""
     send(CP.CUR_RESTORE)
+
+
+fn clear_to_eol():
+    """Clears screen to end of line."""
+    send(CP.CLR_END)
