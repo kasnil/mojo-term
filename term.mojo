@@ -54,6 +54,10 @@ struct CP:
     fn move_up(n: Int = 1) -> String:
         return "\033[" + str(n) + "A"
 
+    @staticmethod
+    fn move_forward(n: Int = 1) -> String:
+        return "\033[" + str(n) + "C"
+
 
 fn send(cmd: String):
     print(cmd, flush=True)
@@ -87,3 +91,8 @@ fn move_down(lines: Int = 1):
 fn move_left(chars: Int = 1):
     """Move cursor backward # of chars."""
     send(CP.move_backward(chars))
+
+
+fn move_right(chars: Int = 1):
+    """Move cursor forward # of chars."""
+    send(CP.move_forward(chars))
