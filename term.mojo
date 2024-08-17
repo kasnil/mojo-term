@@ -58,9 +58,13 @@ struct CP:
     fn move_forward(n: Int = 1) -> String:
         return "\033[" + str(n) + "C"
 
+    @staticmethod
+    fn move(x: Int, y: Int) -> String:
+        return "\033[" + str(x) + ";" + str(y) + "H"
+
 
 fn send(cmd: String):
-    print(cmd, flush=True)
+    print(cmd, flush=True, end="")
 
 
 fn clear_screen():
@@ -96,3 +100,8 @@ fn move_left(chars: Int = 1):
 fn move_right(chars: Int = 1):
     """Move cursor forward # of chars."""
     send(CP.move_forward(chars))
+
+
+fn move(x: Int, y: Int):
+    """Move cursor to x, y."""
+    send(CP.move(x, y))
