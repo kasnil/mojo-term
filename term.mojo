@@ -42,6 +42,10 @@ struct CP:
     alias CLR_BUF = "\033[3J"
     alias CUR_HOME = "\033[H"
 
+    @staticmethod
+    fn move_up(n: Int = 1) -> String:
+        return "\033[" + str(n) + "A"
+
 
 fn send(cmd: String):
     print(cmd, flush=True)
@@ -60,3 +64,8 @@ fn home_pos():
 fn clear_scrollback():
     """Remove any lines that can be scrolled to."""
     send(CP.CLR_BUF)
+
+
+fn move_up(n: Int = 1):
+    """Move cursor up n of lines."""
+    send(CP.move_up(n))
