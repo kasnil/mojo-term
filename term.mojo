@@ -42,6 +42,7 @@ struct CP:
     alias CLR_BUF = "\033[3J"
     alias CUR_HOME = "\033[H"
     alias CUR_SAVE = "\033[s"
+    alias CUR_RESTORE = "\033[u"
 
     @staticmethod
     fn move_backward(n: Int = 1) -> String:
@@ -111,3 +112,8 @@ fn move(x: Int, y: Int):
 fn save():
     """Saves cursor position."""
     send(CP.CUR_SAVE)
+
+
+fn restore():
+    """Restores cursor position."""
+    send(CP.CUR_RESTORE)
