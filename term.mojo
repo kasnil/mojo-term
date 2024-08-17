@@ -46,6 +46,10 @@ struct CP:
     fn move_up(n: Int = 1) -> String:
         return "\033[" + str(n) + "A"
 
+    @staticmethod
+    fn move_down(n: Int = 1) -> String:
+        return "\033[" + str(n) + "B"
+
 
 fn send(cmd: String):
     print(cmd, flush=True)
@@ -69,3 +73,8 @@ fn clear_scrollback():
 fn move_up(n: Int = 1):
     """Move cursor up n of lines."""
     send(CP.move_up(n))
+
+
+fn move_down(n: Int = 1):
+    """Move cursor down n of lines."""
+    send(CP.move_down(n))
