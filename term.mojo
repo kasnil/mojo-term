@@ -44,6 +44,11 @@ struct CSI:
     alias PAR_SEP = ";"
 
 
+struct SGR:
+    alias RESET = "0"
+    alias BOLD = "1"
+
+
 struct Color:
     alias FG_COLOR_DEFAULT = CSI.PREFIX + "39" + CSI.END
     alias FG_BLACK = CSI.PREFIX + FG.BLACK + CSI.END
@@ -209,12 +214,33 @@ struct Color:
         return Color.bg_wrap(s, Color.BG_BRIGHT_WHITE)
 
     @staticmethod
+    fn bg_fg(
+        s: String, bg: String, fg: String, is_bold: Bool = False
+    ) -> String:
+        var sgr = "1" if is_bold else "0"
+        return Color.wrap(
+            s,
+            CSI.PREFIX
+            + str(sgr)
+            + CSI.PAR_SEP
+            + fg
+            + CSI.PAR_SEP
+            + bg
+            + CSI.END,
+            CP.RESET_ALL,
+        )
+
+    @staticmethod
     fn fg_wrap(s: String, attribute: String) -> String:
-        return attribute + s + Color.FG_COLOR_DEFAULT
+        return Color.wrap(s, attribute, Color.FG_COLOR_DEFAULT)
 
     @staticmethod
     fn bg_wrap(s: String, attribute: String) -> String:
-        return attribute + s + Color.BG_COLOR_DEFAULT
+        return Color.wrap(s, attribute, Color.BG_COLOR_DEFAULT)
+
+    @staticmethod
+    fn wrap(s: String, attribute: String, reset_attribute: String) -> String:
+        return attribute + s + reset_attribute
 
 
 struct CP:
@@ -471,3 +497,8 @@ fn bright_cyan_background(s: String) -> String:
 fn bright_white_background(s: String) -> String:
     """Bright white background."""
     return Color.bg_bright_white(s)
+
+
+fn text(s: String, bg: String, fg: String, is_bold: Bool = False) -> String:
+    """Colorizing text."""
+    return Color.bg_fg(s, bg, fg, is_bold)
