@@ -36,34 +36,55 @@ struct BF:
     alias BRIGHT_WHITE = "107"
 
 
+struct CSI:
+    alias ESC = "\033"
+    alias BEGIN = "["
+    alias PREFIX = CSI.ESC + CSI.BEGIN
+    alias END = "m"
+    alias PAR_SEP = ";"
+
+
+struct Color:
+    alias COLOR_DEFAULT = CSI.PREFIX + "39" + CSI.END
+    alias FG_BLACK = CSI.PREFIX + FG.BLACK + CSI.END
+
+    @staticmethod
+    fn fg_black(s: String) -> String:
+        return Color.wrap(s, Color.FG_BLACK, Color.COLOR_DEFAULT)
+
+    @staticmethod
+    fn wrap(s: String, attribute: String, reset_attribute: String) -> String:
+        return attribute + s + reset_attribute
+
+
 struct CP:
-    alias RESET_ALL = "\033[0m"
-    alias CLS_SCR = "\033[2J"
-    alias CLR_BUF = "\033[3J"
-    alias CLR_END = "\033[K"
-    alias CUR_HOME = "\033[H"
-    alias CUR_SAVE = "\033[s"
-    alias CUR_RESTORE = "\033[u"
+    alias RESET_ALL = CSI.PREFIX + "0" + CSI.END
+    alias CLS_SCR = CSI.PREFIX + "2J"
+    alias CLR_BUF = CSI.PREFIX + "3J"
+    alias CLR_END = CSI.PREFIX + "K"
+    alias CUR_HOME = CSI.PREFIX + "H"
+    alias CUR_SAVE = CSI.PREFIX + "s"
+    alias CUR_RESTORE = CSI.PREFIX + "u"
 
     @staticmethod
     fn move_backward(n: Int = 1) -> String:
-        return "\033[" + str(n) + "D"
+        return CSI.PREFIX + str(n) + "D"
 
     @staticmethod
     fn move_down(n: Int = 1) -> String:
-        return "\033[" + str(n) + "B"
+        return CSI.PREFIX + str(n) + "B"
 
     @staticmethod
     fn move_up(n: Int = 1) -> String:
-        return "\033[" + str(n) + "A"
+        return CSI.PREFIX + str(n) + "A"
 
     @staticmethod
     fn move_forward(n: Int = 1) -> String:
-        return "\033[" + str(n) + "C"
+        return CSI.PREFIX + str(n) + "C"
 
     @staticmethod
     fn move(x: Int, y: Int) -> String:
-        return "\033[" + str(x) + ";" + str(y) + "H"
+        return CSI.PREFIX + str(x) + CSI.PAR_SEP + str(y) + "H"
 
 
 fn send(cmd: String):
@@ -130,3 +151,8 @@ fn restore():
 fn clear_to_eol():
     """Clears screen to end of line."""
     send(CP.CLR_END)
+
+
+fn black_text(s: String) -> String:
+    """Black text."""
+    return Color.fg_black(s)
