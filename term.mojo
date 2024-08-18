@@ -50,25 +50,39 @@ struct Color:
     alias FG_RED = CSI.PREFIX + FG.RED + CSI.END
     alias FG_GREEN = CSI.PREFIX + FG.GREEN + CSI.END
     alias FG_YELLOW = CSI.PREFIX + FG.YELLOW + CSI.END
+    alias FG_BLUE = CSI.PREFIX + FG.BLUE + CSI.END
+    alias FG_MAGENTA = CSI.PREFIX + FG.MAGENTA + CSI.END
 
     @staticmethod
     fn fg_black(s: String) -> String:
-        return Color.wrap(s, Color.FG_BLACK, Color.COLOR_DEFAULT)
+        return Color.wrap(s, Color.FG_BLACK)
 
     @staticmethod
     fn fg_red(s: String) -> String:
-        return Color.wrap(s, Color.FG_RED, Color.COLOR_DEFAULT)
+        return Color.wrap(s, Color.FG_RED)
 
     @staticmethod
     fn fg_green(s: String) -> String:
-        return Color.wrap(s, Color.FG_GREEN, Color.COLOR_DEFAULT)
+        return Color.wrap(s, Color.FG_GREEN)
 
     @staticmethod
     fn fg_yellow(s: String) -> String:
-        return Color.wrap(s, Color.FG_YELLOW, Color.COLOR_DEFAULT)
+        return Color.wrap(s, Color.FG_YELLOW)
 
     @staticmethod
-    fn wrap(s: String, attribute: String, reset_attribute: String) -> String:
+    fn fg_blue(s: String) -> String:
+        return Color.wrap(s, Color.FG_BLUE)
+
+    @staticmethod
+    fn fg_magenta(s: String) -> String:
+        return Color.wrap(s, Color.FG_MAGENTA)
+
+    @staticmethod
+    fn wrap(
+        s: String,
+        attribute: String,
+        reset_attribute: String = Color.COLOR_DEFAULT,
+    ) -> String:
         return attribute + s + reset_attribute
 
 
@@ -186,3 +200,13 @@ fn green_text(s: String) -> String:
 fn yellow_text(s: String) -> String:
     """Yellow text."""
     return Color.fg_yellow(s)
+
+
+fn blue_text(s: String) -> String:
+    """Yellow text."""
+    return Color.fg_blue(s)
+
+
+fn magenta_text(s: String) -> String:
+    """Magenta text."""
+    return Color.fg_magenta(s)
