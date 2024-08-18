@@ -69,6 +69,7 @@ struct Color:
     alias BG_YELLOW = CSI.PREFIX + BG.YELLOW + CSI.END
     alias BG_BLUE = CSI.PREFIX + BG.BLUE + CSI.END
     alias BG_MAGENTA = CSI.PREFIX + BG.MAGENTA + CSI.END
+    alias BG_CYAN = CSI.PREFIX + BG.CYAN + CSI.END
 
     @staticmethod
     fn fg_black(s: String) -> String:
@@ -157,6 +158,10 @@ struct Color:
     @staticmethod
     fn bg_magenta(s: String) -> String:
         return Color.bg_wrap(s, Color.BG_MAGENTA)
+
+    @staticmethod
+    fn bg_cyan(s: String) -> String:
+        return Color.bg_wrap(s, Color.BG_CYAN)
 
     @staticmethod
     fn fg_wrap(s: String, attribute: String) -> String:
@@ -371,3 +376,8 @@ fn blue_background(s: String) -> String:
 fn magenta_background(s: String) -> String:
     """Magenta background."""
     return Color.bg_magenta(s)
+
+
+fn cyan_background(s: String) -> String:
+    """Cyan background."""
+    return Color.bg_cyan(s)
