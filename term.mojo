@@ -48,6 +48,7 @@ struct Color:
     alias COLOR_DEFAULT = CSI.PREFIX + "39" + CSI.END
     alias FG_BLACK = CSI.PREFIX + FG.BLACK + CSI.END
     alias FG_RED = CSI.PREFIX + FG.RED + CSI.END
+    alias FG_GREEN = CSI.PREFIX + FG.GREEN + CSI.END
 
     @staticmethod
     fn fg_black(s: String) -> String:
@@ -56,6 +57,10 @@ struct Color:
     @staticmethod
     fn fg_red(s: String) -> String:
         return Color.wrap(s, Color.FG_RED, Color.COLOR_DEFAULT)
+
+    @staticmethod
+    fn fg_green(s: String) -> String:
+        return Color.wrap(s, Color.FG_GREEN, Color.COLOR_DEFAULT)
 
     @staticmethod
     fn wrap(s: String, attribute: String, reset_attribute: String) -> String:
@@ -166,3 +171,8 @@ fn black_text(s: String) -> String:
 fn red_text(s: String) -> String:
     """Red text."""
     return Color.fg_red(s)
+
+
+fn green_text(s: String) -> String:
+    """Green text."""
+    return Color.fg_green(s)
