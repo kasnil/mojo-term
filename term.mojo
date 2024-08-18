@@ -47,10 +47,15 @@ struct CSI:
 struct Color:
     alias COLOR_DEFAULT = CSI.PREFIX + "39" + CSI.END
     alias FG_BLACK = CSI.PREFIX + FG.BLACK + CSI.END
+    alias FG_RED = CSI.PREFIX + FG.RED + CSI.END
 
     @staticmethod
     fn fg_black(s: String) -> String:
         return Color.wrap(s, Color.FG_BLACK, Color.COLOR_DEFAULT)
+
+    @staticmethod
+    fn fg_red(s: String) -> String:
+        return Color.wrap(s, Color.FG_RED, Color.COLOR_DEFAULT)
 
     @staticmethod
     fn wrap(s: String, attribute: String, reset_attribute: String) -> String:
@@ -156,3 +161,8 @@ fn clear_to_eol():
 fn black_text(s: String) -> String:
     """Black text."""
     return Color.fg_black(s)
+
+
+fn red_text(s: String) -> String:
+    """Red text."""
+    return Color.fg_red(s)
