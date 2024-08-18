@@ -45,7 +45,7 @@ struct CSI:
 
 
 struct Color:
-    alias COLOR_DEFAULT = CSI.PREFIX + "39" + CSI.END
+    alias FG_COLOR_DEFAULT = CSI.PREFIX + "39" + CSI.END
     alias FG_BLACK = CSI.PREFIX + FG.BLACK + CSI.END
     alias FG_RED = CSI.PREFIX + FG.RED + CSI.END
     alias FG_GREEN = CSI.PREFIX + FG.GREEN + CSI.END
@@ -62,83 +62,89 @@ struct Color:
     alias FG_BRIGHT_MAGENTA = CSI.PREFIX + FG.BRIGHT_MAGENTA + CSI.END
     alias FG_BRIGHT_CYAN = CSI.PREFIX + FG.BRIGHT_CYAN + CSI.END
     alias FG_BRIGHT_WHITE = CSI.PREFIX + FG.BRIGHT_WHITE + CSI.END
+    alias BG_COLOR_DEFAULT = CSI.PREFIX + "49" + CSI.END
     alias BG_BLACK = CSI.PREFIX + BG.BLACK + CSI.END
+    alias BG_RED = CSI.PREFIX + BG.RED + CSI.END
 
     @staticmethod
     fn fg_black(s: String) -> String:
-        return Color.wrap(s, Color.FG_BLACK)
+        return Color.fg_wrap(s, Color.FG_BLACK)
 
     @staticmethod
     fn fg_red(s: String) -> String:
-        return Color.wrap(s, Color.FG_RED)
+        return Color.fg_wrap(s, Color.FG_RED)
 
     @staticmethod
     fn fg_green(s: String) -> String:
-        return Color.wrap(s, Color.FG_GREEN)
+        return Color.fg_wrap(s, Color.FG_GREEN)
 
     @staticmethod
     fn fg_yellow(s: String) -> String:
-        return Color.wrap(s, Color.FG_YELLOW)
+        return Color.fg_wrap(s, Color.FG_YELLOW)
 
     @staticmethod
     fn fg_blue(s: String) -> String:
-        return Color.wrap(s, Color.FG_BLUE)
+        return Color.fg_wrap(s, Color.FG_BLUE)
 
     @staticmethod
     fn fg_magenta(s: String) -> String:
-        return Color.wrap(s, Color.FG_MAGENTA)
+        return Color.fg_wrap(s, Color.FG_MAGENTA)
 
     @staticmethod
     fn fg_cyan(s: String) -> String:
-        return Color.wrap(s, Color.FG_CYAN)
+        return Color.fg_wrap(s, Color.FG_CYAN)
 
     @staticmethod
     fn fg_white(s: String) -> String:
-        return Color.wrap(s, Color.FG_WHITE)
+        return Color.fg_wrap(s, Color.FG_WHITE)
 
     @staticmethod
     fn fg_bright_gray(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_GRAY)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_GRAY)
 
     @staticmethod
     fn fg_bright_red(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_RED)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_RED)
 
     @staticmethod
     fn fg_bright_green(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_GREEN)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_GREEN)
 
     @staticmethod
     fn fg_bright_yellow(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_YELLOW)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_YELLOW)
 
     @staticmethod
     fn fg_bright_blue(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_BLUE)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_BLUE)
 
     @staticmethod
     fn fg_bright_magenta(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_MAGENTA)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_MAGENTA)
 
     @staticmethod
     fn fg_bright_cyan(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_CYAN)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_CYAN)
 
     @staticmethod
     fn fg_bright_white(s: String) -> String:
-        return Color.wrap(s, Color.FG_BRIGHT_WHITE)
+        return Color.fg_wrap(s, Color.FG_BRIGHT_WHITE)
 
     @staticmethod
     fn bg_black(s: String) -> String:
-        return Color.wrap(s, Color.BG_BLACK)
+        return Color.bg_wrap(s, Color.BG_BLACK)
 
     @staticmethod
-    fn wrap(
-        s: String,
-        attribute: String,
-        reset_attribute: String = Color.COLOR_DEFAULT,
-    ) -> String:
-        return attribute + s + reset_attribute
+    fn bg_red(s: String) -> String:
+        return Color.bg_wrap(s, Color.BG_RED)
+
+    @staticmethod
+    fn fg_wrap(s: String, attribute: String) -> String:
+        return attribute + s + Color.FG_COLOR_DEFAULT
+
+    @staticmethod
+    fn bg_wrap(s: String, attribute: String) -> String:
+        return attribute + s + Color.BG_COLOR_DEFAULT
 
 
 struct CP:
@@ -320,3 +326,8 @@ fn bright_white_text(s: String) -> String:
 fn black_background(s: String) -> String:
     """Black background."""
     return Color.bg_black(s)
+
+
+fn red_background(s: String) -> String:
+    """Red background."""
+    return Color.bg_red(s)
