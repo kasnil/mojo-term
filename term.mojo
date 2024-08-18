@@ -55,6 +55,7 @@ struct Color:
     alias FG_CYAN = CSI.PREFIX + FG.CYAN + CSI.END
     alias FG_WHITE = CSI.PREFIX + FG.WHITE + CSI.END
     alias FG_BRIGHT_GRAY = CSI.PREFIX + FG.BRIGHT_GRAY + CSI.END
+    alias FG_BRIGHT_RED = CSI.PREFIX + FG.BRIGHT_RED + CSI.END
 
     @staticmethod
     fn fg_black(s: String) -> String:
@@ -91,6 +92,10 @@ struct Color:
     @staticmethod
     fn fg_bright_gray(s: String) -> String:
         return Color.wrap(s, Color.FG_BRIGHT_GRAY)
+
+    @staticmethod
+    fn fg_bright_red(s: String) -> String:
+        return Color.wrap(s, Color.FG_BRIGHT_RED)
 
     @staticmethod
     fn wrap(
@@ -240,3 +245,8 @@ fn white_text(s: String) -> String:
 fn bright_gray_text(s: String) -> String:
     """Bright gray text."""
     return Color.fg_bright_gray(s)
+
+
+fn bright_red_text(s: String) -> String:
+    """Bright red text."""
+    return Color.fg_bright_red(s)
