@@ -35,6 +35,7 @@ struct BG:
     alias BRIGHT_MAGENTA = "105"
     alias BRIGHT_CYAN = "106"
     alias BRIGHT_WHITE = "107"
+    alias RGB = "48;2"
 
 
 struct CSI:
@@ -93,6 +94,7 @@ struct Color:
     alias BG_BRIGHT_MAGENTA = CSI.PREFIX + BG.BRIGHT_MAGENTA + CSI.END
     alias BG_BRIGHT_CYAN = CSI.PREFIX + BG.BRIGHT_CYAN + CSI.END
     alias BG_BRIGHT_WHITE = CSI.PREFIX + BG.BRIGHT_WHITE + CSI.END
+    alias BG_RGB = CSI.PREFIX + BG.RGB
 
     @staticmethod
     fn fg_black(s: String) -> String:
@@ -227,6 +229,10 @@ struct Color:
         return Color.bg_wrap(s, Color.BG_BRIGHT_WHITE)
 
     @staticmethod
+    fn bg_rgb(s: String, r: UInt8, g: UInt8, b: UInt8) -> String:
+        return Color.bg_rgb_wrap(s, Color.compose_rgb(Color.BG_RGB, r, g, b))
+
+    @staticmethod
     fn bg_fg(
         s: String, bg: String, fg: String, is_bold: Bool = False
     ) -> String:
@@ -253,6 +259,10 @@ struct Color:
 
     @staticmethod
     fn bg_wrap(s: String, attribute: String) -> String:
+        return Color.wrap(s, attribute, Color.BG_COLOR_DEFAULT)
+
+    @staticmethod
+    fn bg_rgb_wrap(s: String, attribute: String) -> String:
         return Color.wrap(s, attribute, Color.BG_COLOR_DEFAULT)
 
     @staticmethod
@@ -532,6 +542,11 @@ fn bright_cyan_background(s: String) -> String:
 fn bright_white_background(s: String) -> String:
     """Bright white background."""
     return Color.bg_bright_white(s)
+
+
+fn rgb_background(s: String, r: UInt8, g: UInt8, b: UInt8) -> String:
+    """Sets the current background color of the sentence using RGB values."""
+    return Color.bg_rgb(s, r, g, b)
 
 
 fn text(s: String, bg: String, fg: String, is_bold: Bool = False) -> String:
