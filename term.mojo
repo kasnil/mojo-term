@@ -15,6 +15,7 @@ struct FG:
     alias BRIGHT_MAGENTA = "95"
     alias BRIGHT_CYAN = "96"
     alias BRIGHT_WHITE = "97"
+    alias RGB = "38;2"
 
 
 struct BG:
@@ -47,6 +48,13 @@ struct CSI:
 struct SGR:
     alias RESET = "0"
     alias BOLD = "1"
+    alias FAINT = "2"
+    alias ITALIC = "3"
+    alias UNDERLINE = "4"
+    alias BLINK = "5"
+    alias INVERT = "7"
+    alias CONCEAL = "8"
+    alias STRIKE = "9"
 
 
 struct Color:
@@ -67,6 +75,7 @@ struct Color:
     alias FG_BRIGHT_MAGENTA = CSI.PREFIX + FG.BRIGHT_MAGENTA + CSI.END
     alias FG_BRIGHT_CYAN = CSI.PREFIX + FG.BRIGHT_CYAN + CSI.END
     alias FG_BRIGHT_WHITE = CSI.PREFIX + FG.BRIGHT_WHITE + CSI.END
+    alias FG_RGB = CSI.PREFIX + FG.RGB
     alias BG_COLOR_DEFAULT = CSI.PREFIX + "49" + CSI.END
     alias BG_BLACK = CSI.PREFIX + BG.BLACK + CSI.END
     alias BG_RED = CSI.PREFIX + BG.RED + CSI.END
@@ -148,6 +157,10 @@ struct Color:
     @staticmethod
     fn fg_bright_white(s: String) -> String:
         return Color.fg_wrap(s, Color.FG_BRIGHT_WHITE)
+
+    @staticmethod
+    fn fg_rgb(s: String, r: UInt8, g: UInt8, b: UInt8) -> String:
+        return Color.fg_rgb_wrap(s, Color.compose_rgb(Color.FG_RGB, r, g, b))
 
     @staticmethod
     fn bg_black(s: String) -> String:
@@ -235,12 +248,29 @@ struct Color:
         return Color.wrap(s, attribute, Color.FG_COLOR_DEFAULT)
 
     @staticmethod
+    fn fg_rgb_wrap(s: String, attribute: String) -> String:
+        return Color.wrap(s, attribute, Color.FG_COLOR_DEFAULT)
+
+    @staticmethod
     fn bg_wrap(s: String, attribute: String) -> String:
         return Color.wrap(s, attribute, Color.BG_COLOR_DEFAULT)
 
     @staticmethod
     fn wrap(s: String, attribute: String, reset_attribute: String) -> String:
         return attribute + s + reset_attribute
+
+    @staticmethod
+    fn compose_rgb(prefix: String, r: UInt8, g: UInt8, b: UInt8) -> String:
+        return (
+            prefix
+            + CSI.PAR_SEP
+            + str(r)
+            + CSI.PAR_SEP
+            + str(g)
+            + CSI.PAR_SEP
+            + str(b)
+            + CSI.END
+        )
 
 
 struct CP:
@@ -417,6 +447,11 @@ fn bright_cyan_text(s: String) -> String:
 fn bright_white_text(s: String) -> String:
     """Bright white text."""
     return Color.fg_bright_white(s)
+
+
+fn rgb_text(s: String, r: UInt8, g: UInt8, b: UInt8) -> String:
+    """Sets the current text color of the sentence using RGB values."""
+    return Color.fg_rgb(s, r, g, b)
 
 
 fn black_background(s: String) -> String:
